@@ -30,11 +30,12 @@ const User = sequelize.define("user", {
     allowNull: false
   },
   userName: {
-    type: Sequelize.TEXT,
-    allowNull: false
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: "userName"
   },
   password: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     allowNull: false
   }
 });

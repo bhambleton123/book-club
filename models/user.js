@@ -20,6 +20,18 @@ const registerUser = (firstName, lastName, userName, password, cb) => {
     });
 };
 
+const validatePassword = (plainTextPassword, hash, cb) => {
+  bcrypt
+    .compare(plainTextPassword, hash)
+    .then(res => {
+      cb(null, res);
+    })
+    .catch(err => {
+      cb(err);
+    });
+};
+
 module.exports = {
-  registerUser
+  registerUser,
+  validatePassword
 };

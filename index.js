@@ -3,13 +3,44 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
-const User = require("./controllers/user");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+const User = require("./routes/user");
+const passport = require("./passport");
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+const options = {
+  host: process.env.HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB
+};
 
-app.use(express.static("public"));
+const sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    secret: process.env.TOKEN_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 259200000 },
+    store: sessionStore
+  })
+);
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
 //basic auth routes
-app.post("/api/register", User.registerUser);
+app.use(express.static("public"));
+
+app.use("/api", User);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public/index.html"));
+});
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

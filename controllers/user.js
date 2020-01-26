@@ -4,6 +4,7 @@ const registerUser = (req, res) => {
   models.registerUser(
     req.body.firstName,
     req.body.lastName,
+    req.body.userName,
     req.body.password,
     (err, response) => {
       if (err) {

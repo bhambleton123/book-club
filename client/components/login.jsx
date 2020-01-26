@@ -38,9 +38,9 @@ export default function Login() {
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
-        <p id="submit" onClick={submitForm}>
+        <button id="submit" onClick={submitForm}>
           Log in
-        </p>
+        </button>
         <p id="sign-up-text">
           Don't have an account? <Link to="/register">Sign up</Link>!
         </p>

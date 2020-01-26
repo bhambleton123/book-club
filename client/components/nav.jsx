@@ -8,6 +8,7 @@ export default function Nav() {
       .get("/api/logout")
       .then(res => {
         console.log(res);
+        window.location.reload();
       })
       .catch(err => {
         console.error(err);

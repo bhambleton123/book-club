@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const User = require("./routes/user");
+const Book = require("./routes/book");
 const passport = require("./passport");
 const port = process.env.PORT || 3000;
 
@@ -38,6 +39,7 @@ app.use(passport.session());
 app.use(express.static("public"));
 
 app.use("/api", User);
+app.use("/api", Book);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./public/index.html"));

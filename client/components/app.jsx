@@ -9,6 +9,7 @@ import {
 import Register from "./register.jsx";
 import Login from "./login.jsx";
 import Nav from "./nav.jsx";
+import Home from "./home.jsx";
 
 import "../styles/app.css";
 
@@ -25,7 +26,7 @@ export default function App() {
       .catch(err => {
         console.error(err);
       });
-  }, [user]);
+  }, []);
 
   return (
     <Router>
@@ -37,7 +38,11 @@ export default function App() {
           {!user ? <Register /> : <Redirect to="/" />}
         </Route>
         <Route path="/">
-          <p>{user ? user.userName : "Nobody logged in"}</p>
+          {user ? (
+            <Home userName={user.userName} userId={user.id} />
+          ) : (
+            "Nobody logged in"
+          )}
         </Route>
       </Switch>
     </Router>

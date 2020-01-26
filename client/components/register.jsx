@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/form.css";
 
 export default function Register() {
@@ -9,6 +10,25 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
 
+  const submitForm = () => {
+    if (password === checkPassword) {
+      axios
+        .post("/api/register", {
+          firstName,
+          lastName,
+          userName,
+          password
+        })
+        .then(res => {
+          console.log("Successfully added user");
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } else {
+      console.log("Passwords don't match");
+    }
+  };
   return (
     <div id="register">
       <p id="register-text">Register</p>
@@ -40,7 +60,9 @@ export default function Register() {
           type="password"
           onChange={e => setCheckPassword(e.target.value)}
         />
-        <p id="submit">Submit</p>
+        <p id="submit" onClick={submitForm}>
+          Submit
+        </p>
         <p id="sign-up-text">
           Already have an account? <Link to="/login">Log in</Link>!
         </p>

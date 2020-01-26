@@ -12,6 +12,8 @@ body {
 }
 
 #nav {
+  display: flex;
+  justify-content: space-between;
   margin: 0;
   width: 100%;
   height: 80px;
@@ -35,4 +37,8 @@ body {
 .nav-button:hover {
   background-color: rgb(70, 70, 70);
   color: rgb(165, 165, 165);
+}
+
+.nav-button-right {
+  float: right;
 }

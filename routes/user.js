@@ -26,4 +26,6 @@ router.get("/user", (req, res) => {
   );
 });
 
+router.post("/user-exists", User.userNameExists);
+
 module.exports = router;

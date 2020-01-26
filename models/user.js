@@ -31,7 +31,26 @@ const validatePassword = (plainTextPassword, hash, cb) => {
     });
 };
 
+const userNameExists = (userName, cb) => {
+  User.count({
+    where: {
+      userName
+    }
+  })
+    .then(count => {
+      if (!count) {
+        cb(null, false);
+      } else {
+        cb(null, true);
+      }
+    })
+    .catch(err => {
+      cb(err);
+    });
+};
+
 module.exports = {
   registerUser,
-  validatePassword
+  validatePassword,
+  userNameExists
 };

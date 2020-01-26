@@ -10,7 +10,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
 
-  const submitForm = () => {
+  const submitForm = event => {
+    event.preventDefault();
     if (password === checkPassword) {
       axios
         .post("/api/register", {
@@ -20,49 +21,63 @@ export default function Register() {
           password
         })
         .then(res => {
-          console.log("Successfully added user");
+          if (res.data === "SequelizeUniqueConstraintError") {
+            document
+              .getElementById("userName")
+              .setCustomValidity("Username taken");
+          } else {
+            window.location.pathname = "/login";
+          }
         })
         .catch(err => {
           console.error(err);
         });
     } else {
-      console.log("Passwords don't match");
+      document
+        .getElementById("check-password")
+        .setCustomValidity("Passwords don't match");
     }
   };
+
   return (
     <div id="register">
       <p id="register-text">Register</p>
-      <form>
+      <form onSubmit={submitForm}>
         <input
           id="first-name"
           placeholder="first name"
           onChange={e => setFirstName(e.target.value)}
+          required={true}
         />
         <input
           id="last-name"
           placeholder="last name"
           onChange={e => setLastName(e.target.value)}
+          required={true}
         />
         <input
           id="userName"
           placeholder="username"
           onChange={e => setUserName(e.target.value)}
+          onInput={e => e.target.setCustomValidity("")}
+          required={true}
         />
         <input
           id="password"
           placeholder="password"
           type="password"
           onChange={e => setPassword(e.target.value)}
+          required={true}
         />
         <input
           id="check-password"
           placeholder="re-enter password"
           type="password"
           onChange={e => setCheckPassword(e.target.value)}
+          onInput={e => e.target.setCustomValidity("")}
+          required={true}
         />
-        <p id="submit" onClick={submitForm}>
-          Submit
-        </p>
+        <input type="submit" id="submit" value="submit" />
         <p id="sign-up-text">
           Already have an account? <Link to="/login">Log in</Link>!
         </p>

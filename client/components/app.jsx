@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import Register from "./register.jsx";
 import Login from "./login.jsx";
+import Nav from "./nav.jsx";
 
 import "../styles/app.css";
 
@@ -22,25 +28,18 @@ export default function App() {
   }, [user]);
 
   return (
-    <>
-      <Router>
-        <div id="nav">
-          <Link to="/" className="nav-button">
-            <p>Home</p>
-          </Link>
-        </div>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/">
-            <p>{user ? user.userName : "Nobody logged in"}</p>
-          </Route>
-        </Switch>
-      </Router>
-    </>
+    <Router>
+      {!user ? <Redirect to="/login" /> : ""}
+      {!user ? "" : <Nav />}
+      <Switch>
+        <Route path="/login">{!user ? <Login /> : <Redirect to="/" />}</Route>
+        <Route path="/register">
+          {!user ? <Register /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/">
+          <p>{user ? user.userName : "Nobody logged in"}</p>
+        </Route>
+      </Switch>
+    </Router>
   );
 }

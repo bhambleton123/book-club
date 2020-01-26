@@ -20,4 +20,12 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+router.get("/user", (req, res) => {
+  res.send(
+    req.user
+      ? { user: { id: req.user.id, userName: req.user.userName } }
+      : { user: null }
+  );
+});
+
 module.exports = router;

@@ -5,6 +5,6 @@ const isAuthorized = require("../util/auth");
 router.get("/books", isAuthorized, Book.getBooksByUserId);
 router.post("/books", isAuthorized, Book.createBook);
 router.put("/books", isAuthorized, Book.updateBook);
-router.delete("/books", isAuthorized, Book.deleteBook);
+router.delete("/books/:id", isAuthorized, Book.deleteBook);
 
 module.exports = router;

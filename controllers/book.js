@@ -44,7 +44,7 @@ const updateBook = (req, res) => {
 };
 
 const deleteBook = (req, res) => {
-  models.deleteBook(req.body.id, res.user.id, (err, response) => {
+  models.deleteBook(req.nextParams.id, res.user.id, (err, response) => {
     if (err) {
       res.status(500).send(err);
     }

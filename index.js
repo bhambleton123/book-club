@@ -8,6 +8,7 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const User = require("./routes/user");
 const Book = require("./routes/book");
+const BookNote = require("./routes/book_notes");
 const passport = require("./passport");
 const port = process.env.PORT || 3000;
 
@@ -40,6 +41,7 @@ app.use(express.static("public"));
 
 app.use("/api", User);
 app.use("/api", Book);
+app.use("/api", BookNote);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./public/index.html"));

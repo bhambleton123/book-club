@@ -15,13 +15,31 @@ const getBooksByUserId = (userId, cb) => {
 };
 
 const createBook = (title, author, genre, imageUrl, userId, cb) => {
-  Book.create({ title, author, genre, imageUrl, userId })
-    .then(res => {
-      cb(null, res);
-    })
-    .catch(err => {
+  getBooksByUserId(userId, (err, books) => {
+    if (err) {
       cb(err);
+    }
+
+    let isDuplicate = books.some(book => {
+      return (
+        book.dataValues.title === title &&
+        book.dataValues.author === author &&
+        book.dataValues.genre === genre
+      );
     });
+
+    if (!isDuplicate) {
+      Book.create({ title, author, genre, imageUrl, userId })
+        .then(res => {
+          cb(null, res);
+        })
+        .catch(err => {
+          cb(err);
+        });
+    } else {
+      cb(null, "Duplicate book");
+    }
+  });
 };
 
 const updateBook = (id, title, author, genre, imageUrl, userId, cb) => {

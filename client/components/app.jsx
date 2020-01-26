@@ -17,7 +17,6 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.defaults.withCredentials = true;
     axios
       .get("/api/user")
       .then(res => {
@@ -38,11 +37,7 @@ export default function App() {
           {!user ? <Register /> : <Redirect to="/" />}
         </Route>
         <Route path="/">
-          {user ? (
-            <Home userName={user.userName} userId={user.id} />
-          ) : (
-            "Nobody logged in"
-          )}
+          {user ? <Home userName={user.userName} /> : "Nobody logged in"}
         </Route>
       </Switch>
     </Router>

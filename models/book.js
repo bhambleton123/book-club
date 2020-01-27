@@ -1,4 +1,6 @@
+require("dotenv").config();
 const Book = require("../database/index").Book;
+const axios = require("axios");
 
 const getBooksByUserId = (userId, cb) => {
   Book.findAll({
@@ -82,9 +84,34 @@ const deleteBook = (id, userId, cb) => {
     });
 };
 
+//creating function that searches for book based on title using Google Books API
+const searchBook = (query, cb) => {
+  axios
+    .get(
+      `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=6&key=${process.env.GOOGLE_API_KEY}`
+    )
+    .then(res => {
+      return res.data.items.map(book => {
+        return {
+          title: book.volumeInfo.title,
+          author: book.volumeInfo.authors,
+          genre: book.volumeInfo.categories,
+          imageUrl: book.volumeInfo.imageLinks
+        };
+      });
+    })
+    .then(books => {
+      cb(null, books);
+    })
+    .catch(err => {
+      cb(err);
+    });
+};
+
 module.exports = {
   getBooksByUserId,
   createBook,
   updateBook,
-  deleteBook
+  deleteBook,
+  searchBook
 };

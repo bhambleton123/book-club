@@ -52,9 +52,19 @@ const deleteBook = (req, res) => {
   });
 };
 
+const searchBook = (req, res) => {
+  models.searchBook(req.nextParams.query, (err, response) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.send(response);
+  });
+};
+
 module.exports = {
   getBooksByUserId,
   createBook,
   updateBook,
-  deleteBook
+  deleteBook,
+  searchBook
 };

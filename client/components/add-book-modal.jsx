@@ -3,7 +3,7 @@ import axios from "axios";
 import Book from "./book.jsx";
 import "../styles/modal.css";
 
-export default function AddBookModal({ setToggle }) {
+export default function AddBookModal({ setToggle, addBook }) {
   const [searchBooks, setSearchBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -19,18 +19,23 @@ export default function AddBookModal({ setToggle }) {
       });
   };
 
+  const addBookCloseModal = (title, author, genre, imageUrl) => {
+    addBook(title, author, genre, imageUrl);
+    setToggle(false);
+  };
+
   return (
     <div id="modal-wrapper">
+      <button onClick={() => setToggle(false)} id="close">
+        Close
+      </button>
       <span id="book-search">
-        <button onClick={() => setToggle(false)} id="close">
-          Close
-        </button>
         <div id="search-wrapper">
           <input
             id="search-input"
             onChange={e => setSearchInput(e.target.value)}
             type="text"
-            placeholder="Search"
+            placeholder="Search for book"
           />
           <button id="search-button" onClick={search}>
             Submit
@@ -41,7 +46,15 @@ export default function AddBookModal({ setToggle }) {
             {searchBooks.map(book => {
               return (
                 <Book
-                  imgUrl={book.imageUrl ? book.imageUrl.thumbnail : ""}
+                  addBook={() =>
+                    addBookCloseModal(
+                      book.title,
+                      book.author[0],
+                      book.genre[0],
+                      book.imageUrl.thumbnail
+                    )
+                  }
+                  imageUrl={book.imageUrl ? book.imageUrl.thumbnail : ""}
                   title={book.title}
                 />
               );

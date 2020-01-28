@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Book({ imgUrl, title }) {
+export default function Book({ imageUrl, title, addBook }) {
   return (
     <div className="book-container">
       <p>{title}</p>
-      <img className="book-image" src={imgUrl} />
+      <img onClick={addBook} className="book-image" src={imageUrl} />
     </div>
   );
 }

@@ -46,4 +46,5 @@
 
 .book-image {
   cursor: pointer;
+  max-height: 181px;
 }

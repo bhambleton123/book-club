@@ -6,10 +6,13 @@ export default function AddBook() {
 
   return (
     <>
-      {toggle ? <AddBookModal /> : ""}
-      <div onClick={() => setToggle(!toggle)} id="add-book">
-        <p>+</p>
-      </div>
+      {toggle ? (
+        <AddBookModal setToggle={setToggle} />
+      ) : (
+        <div onClick={() => setToggle(!toggle)} id="add-book">
+          <p>+</p>
+        </div>
+      )}
     </>
   );
 }

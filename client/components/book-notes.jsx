@@ -79,6 +79,18 @@ export default function BookNotes({ match }) {
       });
   };
 
+  const deleteBook = () => {
+    axios
+      .delete(`/api/books/${book.id}`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        window.location.reload();
+      });
+  };
+
   useEffect(() => {
     getBook();
     getNotes();
@@ -86,6 +98,9 @@ export default function BookNotes({ match }) {
 
   return (
     <>
+      <p onClick={deleteBook} id="delete">
+        delete book
+      </p>
       <div id="book-notes-container">
         <p id="book-title">{book.title}</p>
         <p>by</p>

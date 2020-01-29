@@ -41,3 +41,11 @@ li {
   color: rgb(32, 32, 245);
   cursor: pointer;
 }
+
+#delete {
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+  color: #e84c4c;
+  cursor: pointer;
+}

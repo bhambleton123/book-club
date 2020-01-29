@@ -1,9 +1,32 @@
+li {
+  display: list-item;
+  list-style-position: inside;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
 #book-notes-container {
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
   justify-content: center;
+  align-items: center;
 }
 
 #book-title {
   font-size: 20px;
+}
+
+#add-note {
+  display: block;
+  width: 100%;
+  padding: 10px 0 10px 0;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  max-width: 80px;
+  background-color: #1688e0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
 }

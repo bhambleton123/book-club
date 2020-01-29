@@ -5,7 +5,7 @@ import AddBook from "./add-book.jsx";
 import Book from "./book.jsx";
 import "../styles/home.css";
 
-export default function Home({ userName }) {
+export default function Home({ user }) {
   const [books, setBooks] = useState([]);
 
   const addBook = (title, author, genre, imageUrl) => {
@@ -31,7 +31,6 @@ export default function Home({ userName }) {
       .catch(err => {
         console.error(err);
       });
-    console.log("Hello did this work?");
   };
 
   useEffect(() => {
@@ -50,9 +49,18 @@ export default function Home({ userName }) {
     <div id="wrapper">
       <div id="home-container">
         {books.map(book => {
-          return <Book imageUrl={book.imageUrl} title={book.title}></Book>;
+          return (
+            <Book
+              user={user}
+              key={book.id}
+              bookId={book.id}
+              modal={false}
+              imageUrl={book.imageUrl}
+              title={book.title}
+            ></Book>
+          );
         })}
-        <AddBook addBook={addBook} />
+        <AddBook user={user} addBook={addBook} />
       </div>
     </div>
   );

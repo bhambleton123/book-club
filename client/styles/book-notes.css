@@ -1,0 +1,9 @@
+#book-notes-container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+#book-title {
+  font-size: 20px;
+}

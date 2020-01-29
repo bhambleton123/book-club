@@ -10,6 +10,15 @@ const getBooksByUserId = (req, res) => {
   });
 };
 
+const getBookById = (req, res) => {
+  models.getBookById(req.nextParams.id, (err, book) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.send(book);
+  });
+};
+
 const createBook = (req, res) => {
   models.createBook(
     req.body.title,
@@ -63,6 +72,7 @@ const searchBook = (req, res) => {
 
 module.exports = {
   getBooksByUserId,
+  getBookById,
   createBook,
   updateBook,
   deleteBook,

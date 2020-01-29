@@ -3,6 +3,7 @@ const Book = require("../controllers/book");
 const isAuthorized = require("../util/auth");
 
 router.get("/books", isAuthorized, Book.getBooksByUserId);
+router.get("/books/:id", isAuthorized, Book.getBookById);
 router.post("/books", isAuthorized, Book.createBook);
 router.put("/books", isAuthorized, Book.updateBook);
 router.delete("/books/:id", isAuthorized, Book.deleteBook);

@@ -20,6 +20,7 @@ export default function Nav() {
       <Link to="/" className="nav-button">
         <p>Home</p>
       </Link>
+      <p id="title">Book Club</p>
       <div onClick={signOut} className="nav-button nav-button-right">
         <p>Sign out</p>
       </div>

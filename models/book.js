@@ -16,6 +16,20 @@ const getBooksByUserId = (userId, cb) => {
     });
 };
 
+const getBookById = (bookId, cb) => {
+  Book.findAll({
+    where: {
+      id: bookId
+    }
+  })
+    .then(book => {
+      cb(null, book[0]);
+    })
+    .catch(err => {
+      cb(err);
+    });
+};
+
 const createBook = (title, author, genre, imageUrl, userId, cb) => {
   getBooksByUserId(userId, (err, books) => {
     if (err) {
@@ -110,6 +124,7 @@ const searchBook = (query, cb) => {
 
 module.exports = {
   getBooksByUserId,
+  getBookById,
   createBook,
   updateBook,
   deleteBook,

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import AddBookModal from "./add-book-modal.jsx";
 
-export default function AddBook({ addBook }) {
+export default function AddBook({ addBook, user }) {
   const [toggle, setToggle] = useState(false);
 
   return (
     <>
       {toggle ? (
-        <AddBookModal addBook={addBook} setToggle={setToggle} />
+        <AddBookModal user={user} addBook={addBook} setToggle={setToggle} />
       ) : (
         <div onClick={() => setToggle(!toggle)} id="add-book">
           <p>+</p>

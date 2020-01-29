@@ -22,10 +22,10 @@ router.get("/logout", (req, res) => {
 
 router.get("/user", (req, res) => {
   res.send(
-    req.user
-      ? { user: { id: req.user.id, userName: req.user.userName } }
-      : { user: null }
+    req.user ? { user: { id: req.user.id, userName: req.user.userName } } : null
   );
 });
+
+router.post("/user-exists", User.userNameExists);
 
 module.exports = router;

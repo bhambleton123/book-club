@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const User = require("./routes/user");
+const Book = require("./routes/book");
+const BookNote = require("./routes/book_notes");
 const passport = require("./passport");
 const port = process.env.PORT || 3000;
 
@@ -38,9 +40,13 @@ app.use(passport.session());
 app.use(express.static("public"));
 
 app.use("/api", User);
+app.use("/api", Book);
+app.use("/api", BookNote);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./public/index.html"));
 });
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.listen(port, "0.0.0.0", () =>
+  console.log(`Server listening on port ${port}`)
+);

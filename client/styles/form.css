@@ -1,0 +1,67 @@
+#register {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-top: 15px;
+  width: 17%;
+  background-color: #fbfbfb;
+  margin-left: 40%;
+  border-radius: 2%;
+  margin-top: 8%;
+  max-width: 500px;
+  min-width: 270px;
+}
+
+#register form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#register form input {
+  position: relative;
+  max-width: 100%;
+  padding: 8px;
+  margin: 8px 0 8px 0;
+  border: #ddd 1px solid;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: normal;
+}
+
+#register form input::placeholder {
+  text-align: left;
+}
+
+#register-text {
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  color: rgb(97, 97, 97);
+}
+
+#submit {
+  display: block;
+  width: 100%;
+  padding: 10px 0 10px 0;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background-color: #1688e0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+#submit:hover {
+  background-color: #1062a1;
+}
+
+#sign-up-text {
+  color: rgb(97, 97, 97);
+}

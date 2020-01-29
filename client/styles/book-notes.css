@@ -30,3 +30,14 @@ li {
   cursor: pointer;
   text-align: center;
 }
+
+.change-note {
+  display: flex;
+  padding-left: 30px;
+}
+
+.change-button {
+  margin-right: 10px;
+  color: rgb(32, 32, 245);
+  cursor: pointer;
+}

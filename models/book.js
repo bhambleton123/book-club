@@ -1,5 +1,6 @@
 require("dotenv").config();
 const Book = require("../database/index").Book;
+const Note = require("../database/index").Note;
 const axios = require("axios");
 
 const getBooksByUserId = (userId, cb) => {
@@ -91,7 +92,12 @@ const deleteBook = (id, userId, cb) => {
     }
   })
     .then(res => {
-      cb(null, res);
+      Note.destroy({
+        where: {
+          bookId: id
+        }
+      });
+      cb(null, res.data);
     })
     .catch(err => {
       cb(err);

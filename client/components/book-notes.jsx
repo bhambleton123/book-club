@@ -8,6 +8,8 @@ export default function BookNotes({ match }) {
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [content, setContent] = useState("");
+  const [editToggle, setEditToggle] = useState(-1);
+  const [editText, setEditText] = useState("");
 
   const getBook = () => {
     axios
@@ -31,6 +33,14 @@ export default function BookNotes({ match }) {
     setToggle(!toggle);
   };
 
+  const setEditToggleNumber = noteId => {
+    if (noteId !== editToggle) {
+      setEditToggle(noteId);
+    } else {
+      setEditToggle(-1);
+    }
+  };
+
   const createNote = () => {
     axios
       .post(`/api/notes/book/${match.params.bookId}`, {
@@ -41,6 +51,32 @@ export default function BookNotes({ match }) {
         getNotes();
       })
       .catch(err => console.error(err));
+  };
+
+  const editNote = id => {
+    axios
+      .put(`/api/notes/${id}`, {
+        content: editText
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        getNotes();
+      });
+  };
+
+  const deleteNote = id => {
+    axios
+      .delete(`/api/notes/${id}`)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        getNotes();
+      });
   };
 
   useEffect(() => {
@@ -79,7 +115,46 @@ export default function BookNotes({ match }) {
       </div>
       <ol id="book-notes-list">
         {notes.map(note => {
-          return <li>{note.content}</li>;
+          return (
+            <>
+              <li>{note.content}</li>
+              <div className="change-note">
+                <p
+                  onClick={() => setEditToggleNumber(note.id)}
+                  className="change-button"
+                >
+                  edit
+                </p>
+                <p
+                  onClick={() => deleteNote(note.id)}
+                  className="change-button"
+                >
+                  delete
+                </p>
+                {editToggle === note.id ? (
+                  <>
+                    <textarea
+                      onChange={e => setEditText(e.target.value)}
+                      name="edit-note"
+                      id="edit-note"
+                      cols="30"
+                      rows="10"
+                    >
+                      {note.content}
+                    </textarea>
+                    <p
+                      onClick={() => editNote(note.id)}
+                      className="change-button"
+                    >
+                      submit
+                    </p>
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </>
+          );
         })}
       </ol>
     </>

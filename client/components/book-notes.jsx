@@ -10,12 +10,19 @@ export default function BookNotes({ match }) {
   const [content, setContent] = useState("");
   const [editToggle, setEditToggle] = useState(-1);
   const [editText, setEditText] = useState("");
+  const [editBookToggle, setEditBookToggle] = useState(false);
+  const [titleText, setTitleText] = useState("");
+  const [authorText, setAuthorText] = useState("");
+  const [genreText, setGenreText] = useState("");
 
   const getBook = () => {
     axios
       .get(`/api/books/${match.params.bookId}`)
       .then(res => {
         setBook(res.data);
+        setTitleText(res.data.title);
+        setAuthorText(res.data.author);
+        setGenreText(res.data.genre);
       })
       .catch(err => console.error(err));
   };
@@ -31,6 +38,10 @@ export default function BookNotes({ match }) {
 
   const toggleTrueFalse = () => {
     setToggle(!toggle);
+  };
+
+  const toggleEditBook = () => {
+    setEditBookToggle(!editBookToggle);
   };
 
   const setEditToggleNumber = noteId => {
@@ -79,6 +90,26 @@ export default function BookNotes({ match }) {
       });
   };
 
+  const updateBook = (title, author, genre) => {
+    axios
+      .put("/api/books", {
+        id: book.id,
+        title,
+        author,
+        genre,
+        imageUrl: book.imageUrl
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => {
+        getBook();
+      });
+  };
+
   const deleteBook = () => {
     axios
       .delete(`/api/books/${book.id}`)
@@ -105,6 +136,37 @@ export default function BookNotes({ match }) {
         <p id="book-title">{book.title}</p>
         <p>by</p>
         <p>{book.author}</p>
+        <p>({book.genre})</p>
+        <p onClick={toggleEditBook} className="change-button">
+          edit
+        </p>
+        {editBookToggle ? (
+          <>
+            <input
+              onChange={e => setTitleText(e.target.value)}
+              type="title"
+              value={titleText}
+            />
+            <input
+              onChange={e => setAuthorText(e.target.value)}
+              type="author"
+              value={authorText}
+            />
+            <input
+              onChange={e => setGenreText(e.target.value)}
+              type="genre"
+              value={genreText}
+            />
+            <p
+              onClick={() => updateBook(titleText, authorText, genreText)}
+              className="change-button"
+            >
+              submit
+            </p>
+          </>
+        ) : (
+          ""
+        )}
         <button onClick={toggleTrueFalse} id="add-note">
           Add Note
         </button>

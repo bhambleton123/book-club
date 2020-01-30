@@ -49,3 +49,8 @@ li {
   color: #e84c4c;
   cursor: pointer;
 }
+
+.column {
+  display: flex;
+  flex-direction: row;
+}

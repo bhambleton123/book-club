@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "serve": "nodemon index.js",
-    "build": "webpack --mode development --watch"
+    "build": "webpack --mode development --watch",
+    "build-prod": "webpack --mode production",
+    "serve-prod": "node index.js"
   },
   "author": "Brian Hambleton",
   "license": "ISC",

@@ -47,9 +47,3 @@ body {
 .nav-button-right {
   float: right;
 }
-
-#footer {
-  background-color: rgb(190, 190, 190);
-  width: 100%;
-  height: 80px;
-}

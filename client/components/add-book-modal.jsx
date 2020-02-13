@@ -8,15 +8,17 @@ export default function AddBookModal({ setToggle, addBook, user }) {
   const [searchInput, setSearchInput] = useState("");
 
   const search = () => {
-    axios
-      .get(`/api/search-books/${searchInput}`)
-      .then(res => {
-        setSearchBooks(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    if (searchInput.length > 0) {
+      axios
+        .get(`/api/search-books/${searchInput}`)
+        .then(res => {
+          setSearchBooks(res.data);
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   };
 
   const addBookCloseModal = (title, author, genre, imageUrl) => {

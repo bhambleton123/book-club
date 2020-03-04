@@ -41,28 +41,36 @@ export default function Register() {
 
   return (
     <div id="register">
-      <p id="register-text">Register</p>
       <form onSubmit={submitForm}>
+        <header className="head-form">
+          <h2>Sign Up</h2>
+          <p>Tell us about yourself.</p>
+        </header>
         <input
+          className="form-input"
           id="first-name"
           placeholder="first name"
           onChange={e => setFirstName(e.target.value)}
           required={true}
         />
         <input
+          className="form-input"
           id="last-name"
           placeholder="last name"
           onChange={e => setLastName(e.target.value)}
           required={true}
         />
+
         <input
+          className="form-input"
           id="userName"
-          placeholder="username"
+          placeholder="@Username"
           onChange={e => setUserName(e.target.value)}
           onInput={e => e.target.setCustomValidity("")}
           required={true}
         />
         <input
+          className="form-input"
           id="password"
           placeholder="password"
           type="password"
@@ -70,6 +78,7 @@ export default function Register() {
           required={true}
         />
         <input
+          className="form-input"
           id="check-password"
           placeholder="re-enter password"
           type="password"
@@ -77,10 +86,15 @@ export default function Register() {
           onInput={e => e.target.setCustomValidity("")}
           required={true}
         />
-        <input type="submit" id="submit" value="submit" />
-        <p id="sign-up-text">
-          Already have an account? <Link to="/login">Log in</Link>!
-        </p>
+        <button className="button" type="submit" id="submit" value="submit">
+          Submit
+        </button>
+
+        <footer className="head-form">
+          <p>
+            Already have an account? <Link to="/login">Log in</Link>!
+          </p>
+        </footer>
       </form>
     </div>
   );

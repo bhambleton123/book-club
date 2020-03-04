@@ -6,6 +6,7 @@ import "../styles/form.css";
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [toggle, setToggle] = useState(true);
 
   const submitForm = () => {
     axios
@@ -27,23 +28,38 @@ export default function Login() {
   return (
     <div id="register">
       <form>
+        <header className="head-form">
+          <h2>Log In</h2>
+          <p>login here using your username and password</p>
+        </header>
         <input
+          className="form-input"
           id="userName"
-          placeholder="username"
+          placeholder="@Username"
           onChange={e => setUserName(e.target.value)}
         />
         <input
+          className="form-input"
           id="password"
-          placeholder="password"
+          placeholder="Password"
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
-        <button id="submit" onClick={submitForm}>
+        <button className="button" id="submit" onClick={submitForm}>
           Log in
         </button>
-        <p id="sign-up-text">
-          Don't have an account? <Link to="/register">Sign up</Link>!
-        </p>
+
+        <footer className="head-form">
+          <p>
+            Don't have an account? <Link to="/register">Sign up</Link>!
+          </p>
+        </footer>
+        {toggle ? (
+          <div className="speech bottom">
+            <div onClick={() => setToggle(!toggle)} className="x"></div>
+            Username: demo <br /> Password: password
+        </div>
+        ) : ""}
       </form>
     </div>
   );
